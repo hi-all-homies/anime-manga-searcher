@@ -3,6 +3,7 @@ package searcher.service;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import searcher.model.Response;
 import searcher.model.Work;
 
@@ -16,7 +17,8 @@ public abstract class WorkService {
 		this.webClient = webClient;
 	}
 	
-	public abstract Work getResponseItemById(final int mal_id);
+	
+	public abstract Mono<Work> getResponseItemById(final int mal_id);
 	
 	
 	public Flux<Work> findWorkByItsTitle(final String title, final String type){

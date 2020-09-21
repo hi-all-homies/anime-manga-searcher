@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="searcher.controllers.MainWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="searcher.controllers.MainWindowController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <children>
-      <ToolBar layoutX="10.0" layoutY="24.0" prefHeight="40.0" prefWidth="630.0" AnchorPane.bottomAnchor="436.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ToolBar layoutX="10.0" layoutY="24.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="630.0" AnchorPane.bottomAnchor="590.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -22,24 +22,18 @@
                   <Font name="System Italic" size="13.0" />
                </font>
             </TextField>
-            <Label fx:id="anime_label" alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="90.0" text="anime">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Slider fx:id="toggler" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="1.0" minorTickCount="1" prefWidth="50.0" snapToTicks="true" />
-            <Label fx:id="manga_label" prefHeight="21.0" prefWidth="91.0" text="manga">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
+            <ToggleButton fx:id="anime" mnemonicParsing="false" selected="true" text="anime">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggles" />
+               </toggleGroup></ToggleButton>
+            <ToggleButton fx:id="manga" mnemonicParsing="false" text="manga" toggleGroup="$toggles" />
          </items>
       </ToolBar>
-      <ScrollPane hbarPolicy="NEVER" layoutX="68.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="55.0">
+      <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutX="68.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="50.0">
          <content>
-            <StackPane prefHeight="425.0" prefWidth="560.0">
+            <StackPane prefHeight="580.0" prefWidth="525.0">
                <children>
-                  <VBox fx:id="content_vbox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="content_vbox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" />
                </children>
             </StackPane>
          </content>

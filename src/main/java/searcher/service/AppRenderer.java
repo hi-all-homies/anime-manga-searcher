@@ -27,6 +27,7 @@ public class AppRenderer {
 		var root = this.uiLoader.load("/MainWindow.fxml");
 		primaryStage.setTitle(appTitle);
 		primaryStage.setScene(new Scene(root));
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 }
