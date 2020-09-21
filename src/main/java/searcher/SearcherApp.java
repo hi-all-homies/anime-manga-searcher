@@ -2,6 +2,7 @@ package searcher;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,7 +20,7 @@ public class SearcherApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+		this.context.publishEvent(new StageReadyEvent(primaryStage));
 	}
 	
 
@@ -27,5 +28,19 @@ public class SearcherApp extends Application {
 	public void stop() throws Exception {
 		this.context.close();
 		Platform.exit();
+	}
+	
+	
+	
+	@SuppressWarnings("serial")
+	public class StageReadyEvent extends ApplicationEvent {
+
+		public StageReadyEvent(Stage source) {
+			super(source);
+		}
+		
+		public Stage getStage() {
+			return (Stage) getSource();
+		}
 	}
 }
