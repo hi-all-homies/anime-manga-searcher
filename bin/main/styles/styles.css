@@ -1,0 +1,64 @@
+.window{
+	-fx-background-color: #252525;
+}
+
+.tog-button{
+	-fx-background-color: #252525;
+	-fx-text-fill: #DC143C;
+	-fx-font-size: 14px;
+}
+.tog-button:selected{
+	-fx-background-color: Teal;
+	-fx-text-fill: #FFFFF0;
+}
+
+.search{
+	-fx-background-color: SteelBlue;
+	-fx-text-fill: #FFFFF0;
+}
+
+.scroll-pane{
+	-fx-background-color: #252525;
+}
+.scroll-pane > .corner{
+	-fx-background-color: #252525;
+}
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-color: Teal;
+    -fx-background-radius: 5em;
+}
+
+.work{
+	-fx-background-color: SteelBlue;
+}
+.my-text{
+	-fx-text-fill: #FFFFF0;
+	-fx-fill: #FFFFF0;
+}
+.img-holder{
+	-fx-border-color: Teal;
+	-fx-border-width: 3px;
+}
+.img-holder:hover{
+	-fx-border-color: #FFFFF0 ;
+}
+
+.progress-bar{
+	-fx-accent: #FFFFF0;
+}
+.progress-bar > .track {
+  -fx-text-box-border: darkblue;
+  -fx-control-inner-background: steelblue;
+}

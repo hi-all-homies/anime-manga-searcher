@@ -3,7 +3,9 @@ package searcher.util;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.stereotype.Service;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -16,8 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -42,7 +42,8 @@ public class WorkItemFactory {
 		types.addAll(List.of("Manga", "Novel", "One-shot", "Manhwa"));
 	}
 
-
+	private final Insets rootInsets = new Insets(0d, 0d, 0d, 3d);
+	
 	public Node getWorkItemView(Work work, double fontSize) {
 		var boldFont = new Font("Comic Sans MS Bold", fontSize);
 		var usualFont = new Font("Comic Sans MS System", fontSize -1);
@@ -50,9 +51,10 @@ public class WorkItemFactory {
 		Label score = createLabel(String.format("rating: %d", work.getScore()), usualFont);
 		VBox imgBox = createImgBox(score, work);
 		StackPane stack = createTextStack(work, usualFont);
-		HBox hbox = new HBox(10d, imgBox, stack);
-		Line line = createLine();
-		VBox root = new VBox(2d, title, hbox, line);
+		HBox hbox = new HBox(5d, imgBox, stack);
+		VBox root = new VBox(2d, title, hbox, new Label());
+		root.setPadding(rootInsets);
+		root.getStyleClass().add("work");
 		return root;
 	}
 	
@@ -60,6 +62,7 @@ public class WorkItemFactory {
 		var label  = new Label(contents);
 		label.setFont(font);
 		label.setMaxWidth(550d);
+		label.getStyleClass().add("my-text");
 		return label;
 	}
 	
@@ -69,8 +72,10 @@ public class WorkItemFactory {
 		iv.setFitWidth(250d);
 		iv.setPreserveRatio(true);
 		iv.setSmooth(true);
+		StackPane stack = new StackPane(iv);
+		stack.getStyleClass().add("img-holder");
 		
-		var imgBox = new VBox(2d, score, iv);
+		var imgBox = new VBox(2d, score, stack);
 		imgBox.setMinHeight(310d);
 		imgBox.setFillWidth(true);
 		imgBox.setCursor(Cursor.HAND);
@@ -97,6 +102,7 @@ public class WorkItemFactory {
 	
 	private StackPane createTextStack(Work work, Font font) {
 		Text text = new Text(work.getSynopsis());
+		text.getStyleClass().add("my-text");
 		text.setFont(font);
 		TextFlow flow = new TextFlow(text);
 		flow.setTextAlignment(TextAlignment.CENTER);
@@ -105,14 +111,5 @@ public class WorkItemFactory {
 		StackPane stack = new StackPane(flow);
 		HBox.setMargin(stack, stackInsets);
 		return stack;
-	}
-	
-	private final Insets lineInsets = new Insets(5d, 0d, 0d, 0d);
-	
-	private Line createLine() {
-		var line = new Line(0, 0, 600, 0);
-		line.setStroke(Color.CORAL);
-		VBox.setMargin(line, lineInsets);
-		return line;
 	}
 }

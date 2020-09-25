@@ -26,7 +26,9 @@ public class AppRenderer {
 		Stage primaryStage = event.getStage();
 		var root = this.uiLoader.load("/MainWindow.fxml");
 		primaryStage.setTitle(appTitle);
-		primaryStage.setScene(new Scene(root));
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
 	}

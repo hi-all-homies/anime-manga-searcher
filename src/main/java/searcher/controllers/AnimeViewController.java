@@ -1,10 +1,9 @@
 package searcher.controllers;
 
+import java.util.function.Consumer;
 import java.util.stream.Stream;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,7 +20,7 @@ import searcher.service.WorkService;
 @Component
 public class AnimeViewController {
 	@FXML private ImageView img;
-	@FXML private TextFlow music;
+	@FXML private TextFlow info;
     @FXML private TextFlow synopsis;
     @FXML private Label title;
 
@@ -37,20 +36,37 @@ public class AnimeViewController {
 	}
 
 	public void initialize() {
-		var id = this.transferService.getCurrentId();
-		Mono.just(id)
+		Mono.just(this.transferService.getCurrentId())
 			.subscribeOn(Schedulers.single())
 			.flatMap(workService::getResponseItemById)
 			.cast(Anime.class)
-			.subscribe(anime -> Platform.runLater(() -> {
+			.subscribe(addAnimeToView);
+	}
+	
+	private final Consumer<Anime> addAnimeToView =
+			anime -> Platform.runLater(() -> {
 				this.title.setText(anime.getTitle());
 				this.img.setImage(new Image(anime.getImage_url()));
-				this.synopsis.getChildren().add(new Text(anime.getSynopsis()));
 				
-				var music1 = anime.getOpening_themes().stream();
-				var music2 = anime.getEnding_themes().stream();
-				Stream.concat(music1, music2).forEach(item -> this.music.getChildren().add(new Text(item)));
-			}));
-		
-	}
+				Text syn = new Text(anime.getSynopsis());
+				var synopsisChilderen = this.synopsis.getChildren();
+				synopsisChilderen.addAll(syn, newLine());
+				
+				var op = anime.getOpening_themes().stream();
+				var end = anime.getEnding_themes().stream();
+				Stream.concat(op, end).forEach(song -> {
+					synopsisChilderen.add(new Text(song));
+					synopsisChilderen.add(newLine());
+				});
+				
+				var infoChildren = this.info.getChildren();
+				Text episodeCount = new Text(String.format("episodes: %d", anime.getEpisodes()));
+				Text dur = new Text(String.format("duration: %s", anime.getDuration()));
+				Text rate = new Text(String.format("rating: %s", anime.getRating()));
+				infoChildren.addAll(rate, newLine(), dur, newLine(), episodeCount);
+			});
+			
+			private Text newLine() {
+				return new Text(System.lineSeparator());
+			}
 }
