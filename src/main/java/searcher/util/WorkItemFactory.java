@@ -41,6 +41,18 @@ public class WorkItemFactory {
 		this.transferService = transferService;
 		types.addAll(List.of("Manga", "Novel", "One-shot", "Manhwa"));
 	}
+	
+	
+	public Text createTextNode(String textString, Font...fonts) {
+		Text text = new Text(textString);
+		text.getStyleClass().add("my-text");
+		if (fonts.length > 0)
+			text.setFont(fonts[0]);
+		return text;
+	}
+	
+	public Text newLine() {return new Text(System.lineSeparator());}
+	
 
 	private final Insets rootInsets = new Insets(0d, 0d, 0d, 3d);
 	
@@ -48,7 +60,7 @@ public class WorkItemFactory {
 		var boldFont = new Font("Comic Sans MS Bold", fontSize);
 		var usualFont = new Font("Comic Sans MS System", fontSize -1);
 		Label title = createLabel(work.getTitle(), boldFont);
-		Label score = createLabel(String.format("rating: %d", work.getScore()), usualFont);
+		Label score = createLabel(String.format("score: %d", work.getScore()), usualFont);
 		VBox imgBox = createImgBox(score, work);
 		StackPane stack = createTextStack(work, usualFont);
 		HBox hbox = new HBox(5d, imgBox, stack);
@@ -76,7 +88,6 @@ public class WorkItemFactory {
 		stack.getStyleClass().add("img-holder");
 		
 		var imgBox = new VBox(2d, score, stack);
-		imgBox.setMinHeight(310d);
 		imgBox.setFillWidth(true);
 		imgBox.setCursor(Cursor.HAND);
 		imgBox.setOnMouseClicked(event -> mouseClikedHandler(event, work));

@@ -62,3 +62,29 @@
   -fx-text-box-border: darkblue;
   -fx-control-inner-background: steelblue;
 }
+
+.tab{
+	 -fx-background-color: Teal;
+}
+.tab-label{
+	-fx-text-fill: #FFFFF0;
+	-fx-font-size: 15px;
+}
+.tab:selected {
+    -fx-background-color:SteelBlue ;
+}
+.tab-pane > .tab-header-area > .tab-header-background {
+	 -fx-background-color: transparent;
+}
+
+#fav{
+	 -fx-background-color:SteelBlue;
+	 -fx-text-fill: #FFFFF0;
+	 -fx-font-family: Comic Sans MS;
+	 -fx-font-size: 15px;
+	 -fx-border-color: royalblue;
+	 -fx-border-width: 2px;
+}
+#fav:hover{
+	-fx-border-color: ivory;
+}
