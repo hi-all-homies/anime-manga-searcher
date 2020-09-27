@@ -15,14 +15,18 @@ public class AppRenderer {
 	private String appTitle;
 	
 	private final UILoader uiLoader;
+	private final FavoritesService favService;
 	
-	public AppRenderer(UILoader uiLoader) {
+	public AppRenderer(UILoader uiLoader, FavoritesService favService) {
 		this.uiLoader = uiLoader;
+		this.favService = favService;
 	}
 
 
 	@EventListener
 	public void lookForStageIsReady(StageReadyEvent event) {
+		this.favService.initFavs();
+		
 		Stage primaryStage = event.getStage();
 		var root = this.uiLoader.load("/MainWindow.fxml");
 		primaryStage.setTitle(appTitle);

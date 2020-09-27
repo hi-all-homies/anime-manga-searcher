@@ -7,6 +7,7 @@ build/
 
 src/main/resources/application.properties
 bin/main/application.properties
+favorites.ser
 
 ### STS ###
 .apt_generated

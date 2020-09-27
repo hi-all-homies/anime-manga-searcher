@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import searcher.service.FavoritesService;
 
 @SpringBootApplication
 public class SearcherApp extends Application {
@@ -26,6 +27,8 @@ public class SearcherApp extends Application {
 
 	@Override
 	public void stop() throws Exception {
+		var favService = this.context.getBean(FavoritesService.class);
+		favService.saveFavs();
 		this.context.close();
 		Platform.exit();
 	}

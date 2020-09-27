@@ -32,4 +32,8 @@ public class Work {
 		this.score = score;
 		this.synopsis = synopsis;
 	}
+	
+	public StartEndDates getDates() {
+		throw new UnsupportedOperationException("this doesn't have any date fields");
+	}
 }

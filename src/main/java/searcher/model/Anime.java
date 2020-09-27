@@ -14,6 +14,7 @@ public class Anime extends Work{
 	private final String rating;
 	private final List<String> opening_themes;
 	private final List<String> ending_themes;
+	private final Aired aired;
 	
 	@JsonCreator
 	public Anime(
@@ -27,7 +28,8 @@ public class Anime extends Work{
 			@JsonProperty("duration") String duration,
 			@JsonProperty("rating") String rating,
 			@JsonProperty("opening_themes") List<String> opening_themes,
-			@JsonProperty("ending_themes") List<String> ending_themes) {
+			@JsonProperty("ending_themes") List<String> ending_themes,
+			@JsonProperty("aired") Aired aired) {
 		
 		super(mal_id, image_url, title, type, score, synopsis);
 		this.episodes = episodes;
@@ -35,7 +37,12 @@ public class Anime extends Work{
 		this.rating = rating;
 		this.opening_themes = opening_themes;
 		this.ending_themes = ending_themes;
+		this.aired = aired;
 	}
+
 	
-	
+	@Override
+	public StartEndDates getDates() {
+		return this.aired;
+	}
 }
