@@ -4,7 +4,9 @@ import java.util.function.Consumer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -17,6 +19,8 @@ import javafx.scene.text.TextFlow;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 import searcher.model.Anime;
+import searcher.model.FavWork;
+import searcher.service.FavoritesService;
 import searcher.service.TransferService;
 import searcher.service.WorkService;
 import searcher.util.WorkItemFactory;
@@ -31,20 +35,26 @@ public class AnimeViewController {
 	@FXML private TextFlow op;
 	@FXML private TextFlow end;
 	@FXML private ProgressBar progress;
+	@FXML private ImageView fav_img;
+	@FXML private Button addFav;
 	
 	private final TransferService transferService;
 	private final WorkService workService;
 	private WorkItemFactory itemFactory;
+	private final FavoritesService favService;
 	
 	public AnimeViewController(TransferService transferService,
 			@Qualifier("anime") WorkService workService,
-			WorkItemFactory itemFactory) {
+			WorkItemFactory itemFactory, FavoritesService favService) {
 		this.transferService = transferService;
 		this.workService = workService;
 		this.itemFactory = itemFactory;
+		this.favService = favService;
 	}
 
 	public void initialize() {
+		this.addFav.setOnAction(this::addToFavorites);
+		
 		Mono.just(this.transferService.getCurrentId())
 			.subscribeOn(Schedulers.single())
 			.flatMap(workService::getResponseItemById)
@@ -52,17 +62,44 @@ public class AnimeViewController {
 			.subscribe(addAnimeToView);
 	}
 	
+	
+	private void addToFavorites(ActionEvent event) {
+		var favWork = (FavWork) ((Button) event.getSource()).getUserData();
+		if (this.favService.isFavorite(favWork.getMal_id())) {
+			this.addFav.setText("add to favs");
+			this.fav_img.setVisible(false);
+			this.favService.removeFav(favWork);
+		}
+		else {
+			this.fav_img.setVisible(true);
+			this.addFav.setText("out of favs");
+			this.favService.addFav(favWork);
+		}
+	}
+	
+	
 	private final Consumer<Anime> addAnimeToView =
 			anime -> Platform.runLater(() -> {
+				this.addFav.setUserData(new FavWork(anime));
 				this.title.setText(anime.getTitle());
 				this.img.setImage(new Image(anime.getImage_url()));
 				Font font  = new Font(14d);
 				setSynopsis(anime, font);
 				setInfoTextFlow(anime, font);
 				setMusicInfo(anime, font);
+				setFavs(anime);
 				((AnchorPane)this.progress.getParent()).getChildren().remove(this.progress);
 				this.hbox.setVisible(true);
 			});
+			
+			private void setFavs(Anime anime) {
+				if (this.favService.isFavorite(anime.getMal_id())) {
+					this.fav_img.setVisible(true);
+					this.addFav.setText("out of favs");
+				}
+				else
+					this.addFav.setText("add to favs");
+			}
 			
 			private void setSynopsis(Anime anime, Font font) {
 				Text syn = this.itemFactory.createTextNode(anime.getSynopsis(), font);

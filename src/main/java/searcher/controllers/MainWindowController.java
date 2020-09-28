@@ -1,6 +1,7 @@
 package searcher.controllers;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -31,7 +33,7 @@ public class MainWindowController {
 	 @FXML private ToggleButton manga;
 	 @FXML private ToggleButton anime;
 	 @FXML private VBox content_vbox;
-	 @FXML private ProgressBar progress;
+	 private ProgressBar progress;
 	 
 	 private final WorkService workService;
 	 private final UnicastProcessor<String> publisher;
@@ -50,9 +52,9 @@ public class MainWindowController {
 		this.workItemFactory = workItemFactory;
 		this.eventListener = new ChangeSearchStateEventListener();
 	}
-
-
+	
 	public void initialize() {
+		this.initProgressBar();
 		anime.setOnAction(this::toggleHandler);
 		manga.setOnAction(this::toggleHandler);
 		
@@ -61,13 +63,17 @@ public class MainWindowController {
 		this.eventListener.subscribeForEvents();
 	}
 	
-	
 	private void toggleHandler(ActionEvent event) {
 		var togl = (ToggleButton) event.getSource();
 		if (!togl.isSelected())
 			togl.setSelected(true);
 	}
 	
+	private void initProgressBar() {
+		this.progress = new ProgressBar();
+		this.progress.setPrefSize(400d, 20d);
+		VBox.setMargin(this.progress, new Insets(150d, 50d, 0d, 50d));
+	}
 	
 	
 	private class ChangeSearchStateEventListener {
@@ -79,7 +85,9 @@ public class MainWindowController {
 				.filter(checkSearchValue)
 				.doOnNext(removeLastResults)
 				.flatMap(findWorks)
-				.delayElements(Duration.ofMillis(200l))
+				.doOnNext(works -> Platform.runLater(() -> content_vbox.getChildren().clear()))
+				.flatMap(works -> Flux.fromIterable(works))
+				.delayElements(Duration.ofMillis(150l))
 				.subscribe(addWork);
 		}
 		
@@ -90,11 +98,11 @@ public class MainWindowController {
 			
 		private final Consumer<String> removeLastResults =
 				searchValue -> Platform.runLater(() -> {
-					progress.setVisible(true);
-					content_vbox.getChildren().clear();});
+					content_vbox.getChildren().clear();
+					content_vbox.getChildren().add(progress);});
 		
 			
-		private final Function<String, Flux<Work>> findWorks = searchValue ->
+		private final Function<String, Mono<List<Work>>> findWorks = searchValue ->
 			workService.findWorkByItsTitle(searchValue,
 					((ToggleButton) toggles.getSelectedToggle()).getText());
 			
@@ -102,7 +110,6 @@ public class MainWindowController {
 		private final Consumer<Work> addWork = work -> {
 			var guiElem = workItemFactory.getWorkItemView(work, 15d);
 			Platform.runLater(() -> {
-				progress.setVisible(false);
 				content_vbox.getChildren().add(guiElem);});
 		};
 	}

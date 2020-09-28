@@ -31,7 +31,18 @@
                         <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </TextFlow>
-                  <Button id="fav" mnemonicParsing="false" text="favorites" />
+                  <HBox alignment="CENTER_LEFT" spacing="40.0">
+                     <children>
+                        <ImageView fx:id="fav_img" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" visible="false" preserveRatio="true">
+                           <image>
+                              <Image url="@img/star.png" />
+                           </image></ImageView>
+                        <Button id="fav" fx:id="addFav" mnemonicParsing="false" text="favorites" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="430.0">

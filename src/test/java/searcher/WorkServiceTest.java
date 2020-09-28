@@ -18,7 +18,8 @@ public class WorkServiceTest {
 	
 	@Test
 	void shoudFetchSomeNumberOfItems() {
-		Flux<Work> results = workService.findWorkByItsTitle("attack on titan", "anime");
+		Flux<Work> results = workService.findWorkByItsTitle("attack on titan", "anime")
+				.flatMapMany(works -> Flux.fromIterable(works));
 		
 		StepVerifier.create(results, 5l)
 			.thenRequest(5l)

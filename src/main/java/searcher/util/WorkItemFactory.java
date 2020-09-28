@@ -104,6 +104,7 @@ public class WorkItemFactory {
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(new Scene(root));
+				stage.setResizable(false);
 				stage.show();
 			});
 		}
