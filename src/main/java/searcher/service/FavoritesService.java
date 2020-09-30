@@ -39,4 +39,8 @@ public class FavoritesService {
 	public void saveFavs() {
 		this.fieStorage.saveFavorites(this.favorites);
 	}
+	
+	public Map<Integer, FavWork> getFavorites(){
+		return this.favorites;
+	}
 }

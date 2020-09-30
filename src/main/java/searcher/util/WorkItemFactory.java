@@ -1,11 +1,7 @@
 package searcher.util;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
-
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -24,6 +20,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import searcher.config.ViewTypes;
 import searcher.model.Work;
 import searcher.service.TransferService;
 
@@ -31,15 +28,12 @@ import searcher.service.TransferService;
 public class WorkItemFactory {
 	private final UILoader uiLoader;
 	private final TransferService transferService;
-	
-	private final Set<String> types = new HashSet<>();
-	private static final String ANIME_VIEW = "/Anime.fxml";
-	private static final String MANGA_VIEW = "/Manga.fxml";
+	private final ViewTypes viewTypes;
 	 
-	public WorkItemFactory(UILoader uiLoader, TransferService transferService) {
+	public WorkItemFactory(UILoader uiLoader, TransferService transferService, ViewTypes viewTypes) {
 		this.uiLoader = uiLoader;
 		this.transferService = transferService;
-		types.addAll(List.of("Manga", "Novel", "One-shot", "Manhwa"));
+		this.viewTypes = viewTypes;
 	}
 	
 	
@@ -97,7 +91,8 @@ public class WorkItemFactory {
 	private void mouseClikedHandler(MouseEvent event, Work work) {
 		if (event.getButton().compareTo(MouseButton.PRIMARY) == 0) {
 			this.transferService.setCurrentId(work.getMal_id());
-			String type = this.types.contains(work.getType()) ? MANGA_VIEW : ANIME_VIEW;
+			String type = this.viewTypes.contains(work.getType()) ?
+					ViewTypes.MANGA_VIEW : ViewTypes.ANIME_VIEW;
 			final var root = this.uiLoader.load(type);
 			
 			Platform.runLater(() -> {

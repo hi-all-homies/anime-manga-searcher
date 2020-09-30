@@ -92,3 +92,33 @@
 #fav:hover{
 	-fx-border-color: ivory;
 }
+
+.fav-work{
+	 -fx-background-color:SteelBlue;
+	 -fx-text-fill: #FFFFF0;
+	 -fx-font-family: Comic Sans MS;
+	 -fx-font-size: 15px;
+	 -fx-border-color: teal;
+	 -fx-border-width: 2px;
+}
+.fav-work:hover{
+	-fx-border-color: ivory;
+}
+.fav-work:pressed{
+	-fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
+.menu-bar{
+	-fx-background-color: transparent;
+}
+.menu-bar .label{
+	 -fx-font-size: 15px;
+	 -fx-text-fill: #FFFFF0;
+}
+.menu-bar .menu-button{
+	-fx-background-color: red;
+}
+.context-menu {
+    -fx-skin: "javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: black;
+}

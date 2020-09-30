@@ -31,7 +31,7 @@
                <children>
                   <MenuBar layoutX="80.0" layoutY="3.0">
                     <menus>
-                      <Menu fx:id="menu" mnemonicParsing="false" text="actions">
+                      <Menu mnemonicParsing="false" text="actions">
                         <items>
                           <MenuItem fx:id="favs" mnemonicParsing="false" text="favorites" />
                         </items>

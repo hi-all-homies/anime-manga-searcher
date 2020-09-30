@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -22,7 +23,9 @@ import reactor.core.publisher.Mono;
 import reactor.core.publisher.UnicastProcessor;
 import reactor.core.scheduler.Schedulers;
 import searcher.model.Work;
+import searcher.service.FavoritesService;
 import searcher.service.WorkService;
+import searcher.util.UILoader;
 import searcher.util.WorkItemFactory;
 
 @Component
@@ -33,28 +36,36 @@ public class MainWindowController {
 	 @FXML private ToggleButton manga;
 	 @FXML private ToggleButton anime;
 	 @FXML private VBox content_vbox;
+	 @FXML private MenuItem favs;
 	 private ProgressBar progress;
 	 
 	 private final WorkService workService;
 	 private final UnicastProcessor<String> publisher;
 	 private final Flux<String> source;
 	 private final ChangeSearchStateEventListener eventListener;
-	 private final WorkItemFactory workItemFactory; 
+	 private final WorkItemFactory workItemFactory;
+	 private final UILoader uiLoader;
+	 private final FavoritesService favService;
 	 
 	public MainWindowController(
 			@Qualifier("anime") WorkService workService,
 			@Qualifier("publisher") UnicastProcessor<String> publisher,
 			@Qualifier("source") Flux<String> source,
-			WorkItemFactory workItemFactory) {
+			WorkItemFactory workItemFactory,
+			 UILoader uiLoader,
+			 FavoritesService favService) {
 		this.workService = workService;
 		this.publisher = publisher;
 		this.source = source;
 		this.workItemFactory = workItemFactory;
+		this.uiLoader = uiLoader;
+		this.favService = favService;
 		this.eventListener = new ChangeSearchStateEventListener();
 	}
 	
 	public void initialize() {
 		this.initProgressBar();
+		this.favs.setOnAction(this::favsHandler);
 		anime.setOnAction(this::toggleHandler);
 		manga.setOnAction(this::toggleHandler);
 		
@@ -73,6 +84,14 @@ public class MainWindowController {
 		this.progress = new ProgressBar();
 		this.progress.setPrefSize(400d, 20d);
 		VBox.setMargin(this.progress, new Insets(150d, 50d, 0d, 50d));
+	}
+	
+	private void favsHandler(ActionEvent event) {
+		this.content_vbox.getChildren().clear();
+		this.favService.getFavorites().values()
+			.stream()
+			.map(uiLoader::loadFavItem)
+			.forEach(item -> content_vbox.getChildren().add(item));
 	}
 	
 	
