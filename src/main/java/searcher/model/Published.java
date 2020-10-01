@@ -1,0 +1,33 @@
+package searcher.model;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+public class Published implements StartEndDates{
+	private final OffsetDateTime from;
+	private final OffsetDateTime to;
+	
+	@JsonCreator
+	public Published(
+			@JsonProperty("from") OffsetDateTime from,
+			@JsonProperty("to") OffsetDateTime to) {
+		this.from = from;
+		this.to = to;
+	}
+
+	@Override
+	public LocalDate getStart() {
+		return this.from.toLocalDate();
+	}
+
+	@Override
+	public LocalDate getEnd() {
+		return this.to.toLocalDate();
+	}
+}

@@ -116,9 +116,14 @@
 	 -fx-text-fill: #FFFFF0;
 }
 .menu-bar .menu-button{
-	-fx-background-color: red;
+	-fx-background-color: steelblue;
+	-fx-border-radius: 15 15 15 15;
+  	-fx-background-radius: 15 15 15 15;
+}
+.menu-bar .menu-button:hover{
+	-fx-background-color: #DC143C;
 }
 .context-menu {
     -fx-skin: "javafx.scene.control.skin.ContextMenuSkin";
-    -fx-background-color: black;
+    -fx-background-color: teal;
 }
