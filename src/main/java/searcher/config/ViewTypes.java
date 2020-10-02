@@ -12,7 +12,7 @@ public class ViewTypes {
 	public static final String MANGA_VIEW = "/Manga.fxml";
 	
 	public ViewTypes() {
-		types.addAll(List.of("Manga", "Novel", "One-shot", "Manhwa"));
+		types.addAll(List.of("Manga", "Novel", "One-shot", "Manhwa", "Doujinshi"));
 	}
 	
 	public boolean contains(String type) {
