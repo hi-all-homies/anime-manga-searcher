@@ -128,9 +128,11 @@ public class AnimeViewController {
 						String.format("score: %d", anime.getScore()), font);
 				Text type = this.itemFactory.createTextNode(
 						String.format("type: %s", anime.getType()), font);
+				Text startYear = this.itemFactory.createTextNode(
+						String.format("release year: %d", anime.getDates().getStart().getYear()), font);
 				
 				infoChildren.addAll(score, this.itemFactory.newLine(),
 						type, this.itemFactory.newLine(), rate, this.itemFactory.newLine(),
-						episodes, this.itemFactory.newLine(), dur);
+						episodes, this.itemFactory.newLine(), dur, this.itemFactory.newLine(), startYear);
 			}
 }

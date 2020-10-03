@@ -127,3 +127,6 @@
     -fx-skin: "javafx.scene.control.skin.ContextMenuSkin";
     -fx-background-color: teal;
 }
+.scroll-pane > .viewport{
+	-fx-background-color: #252525;
+}

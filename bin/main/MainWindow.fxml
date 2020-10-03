@@ -27,9 +27,9 @@
                   <ToggleGroup fx:id="toggles" />
                </toggleGroup></ToggleButton>
             <ToggleButton fx:id="manga" mnemonicParsing="false" styleClass="tog-button" text="manga" toggleGroup="$toggles" />
-            <Pane prefHeight="30.0" prefWidth="164.0">
+            <Pane prefHeight="30.0" prefWidth="150.0">
                <children>
-                  <MenuBar layoutX="80.0" layoutY="3.0">
+                  <MenuBar layoutX="50.0" layoutY="1.0">
                     <menus>
                       <Menu mnemonicParsing="false" text="actions">
                         <items>

@@ -28,6 +28,10 @@ public class Aired implements StartEndDates{
 
 	@Override
 	public LocalDate getEnd() {
-		return this.to.toLocalDate();
+		try {
+			return this.to.toLocalDate();
+		} catch (NullPointerException e) {
+			return LocalDate.MIN;
+		}
 	}
 }

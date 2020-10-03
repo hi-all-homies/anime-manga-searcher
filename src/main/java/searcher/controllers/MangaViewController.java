@@ -1,6 +1,5 @@
 package searcher.controllers;
 
-import java.time.LocalDate;
 import java.util.function.Consumer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -34,6 +33,7 @@ public class MangaViewController {
 	@FXML private ImageView fav_img;
 	@FXML private Button addFav;
 	@FXML private TextFlow synopsis;
+	@FXML private TextFlow background;
 	@FXML private Label title;
 	@FXML private ProgressBar progress;
 	
@@ -102,8 +102,11 @@ public class MangaViewController {
 			
 			private void setSynopsis(Manga manga, Font font) {
 				Text syn = this.itemFactory.createTextNode(manga.getSynopsis(), font);
-				Text back = this.itemFactory.createTextNode(String.format("Background: \n%s", manga.getBackground()), font);
-				this.synopsis.getChildren().addAll(syn, this.itemFactory.newLine(), back);
+				Text back = this.itemFactory.createTextNode(manga.getBackground(), font);
+				this.synopsis.getChildren().add(syn);
+				this.background.getChildren().addAll(
+						this.itemFactory.createTextNode("Background:\n", new Font(15d)),
+						back);
 			}
 			
 			private void setInfoTextFlow(Manga manga, Font font) {
@@ -113,13 +116,7 @@ public class MangaViewController {
 				Text chapters = this.itemFactory.createTextNode(
 						String.format("chapters: %d", manga.getChapters()), font);
 				Text startYear = this.itemFactory.createTextNode(
-						String.format("start year: %d", manga.getDates().getStart().getYear()), font);
-				
-				var end = manga.getDates().getEnd();
-				String endStr = end == LocalDate.MIN ?
-						"end year: doens't finish yet" : String.format("end year: ", end.getYear());
-				Text endYear = this.itemFactory.createTextNode(endStr, font);
-				
+						String.format("release year: %d", manga.getDates().getStart().getYear()), font);
 				Text score = this.itemFactory.createTextNode(
 						String.format("score: %d", manga.getScore()), font);
 				Text type = this.itemFactory.createTextNode(
@@ -127,7 +124,7 @@ public class MangaViewController {
 				
 				infoChildren.addAll(score, this.itemFactory.newLine(),
 						volumes, this.itemFactory.newLine(), chapters, this.itemFactory.newLine(),
-						type, this.itemFactory.newLine(),startYear, this.itemFactory.newLine(), endYear);
+						type, this.itemFactory.newLine(),startYear);
 			}
 	
 }
