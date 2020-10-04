@@ -43,7 +43,6 @@ public class MainWindowController {
 	 private final UnicastProcessor<String> publisher;
 	 private final Flux<String> source;
 	 private final ChangeSearchStateEventListener eventListener;
-	 private final WorkItemFactory workItemFactory;
 	 private final UILoader uiLoader;
 	 private final FavoritesService favService;
 	 
@@ -57,7 +56,6 @@ public class MainWindowController {
 		this.workService = workService;
 		this.publisher = publisher;
 		this.source = source;
-		this.workItemFactory = workItemFactory;
 		this.uiLoader = uiLoader;
 		this.favService = favService;
 		this.eventListener = new ChangeSearchStateEventListener();
@@ -78,6 +76,7 @@ public class MainWindowController {
 		var togl = (ToggleButton) event.getSource();
 		if (!togl.isSelected())
 			togl.setSelected(true);
+		this.search.clear();
 	}
 	
 	private void initProgressBar() {
@@ -127,7 +126,7 @@ public class MainWindowController {
 			
 			
 		private final Consumer<Work> addWork = work -> {
-			var guiElem = workItemFactory.getWorkItemView(work, 15d);
+			var guiElem = uiLoader.loadWorkItem(work);
 			Platform.runLater(() -> {
 				content_vbox.getChildren().add(guiElem);});
 		};

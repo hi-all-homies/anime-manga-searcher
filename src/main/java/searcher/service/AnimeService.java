@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import searcher.model.Anime;
+import searcher.model.ErrorWork;
 import searcher.model.Work;
 
 @Service(value = "anime")
@@ -26,8 +27,6 @@ public class AnimeService extends WorkService {
 				.retrieve()
 				.bodyToMono(Anime.class)
 				.cast(Work.class)
-				.doOnError(err -> System.out.println(err.getMessage()));
+				.onErrorReturn(new ErrorWork(super.errorUrl));
 	}
-
-	
 }

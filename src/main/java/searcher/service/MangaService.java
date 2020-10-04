@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import searcher.model.ErrorWork;
 import searcher.model.Manga;
 import searcher.model.Work;
 
@@ -26,6 +27,6 @@ public class MangaService extends WorkService {
 				.retrieve()
 				.bodyToMono(Manga.class)
 				.cast(Work.class)
-				.doOnError(err -> System.err.println(err.getMessage()));
+				.onErrorReturn(new ErrorWork(super.errorUrl));
 	}
 }
