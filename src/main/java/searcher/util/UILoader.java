@@ -31,8 +31,8 @@ public class UILoader {
         this.transferService = transferService;
         this.viewTypes = viewTypes;
         this.itemFactory = itemFactory;
-        this.favItemUrl = getClass().getResource("/FavItem.fxml");
-        this.workItemUrl = getClass().getResource("/WorkItem.fxml");
+        this.favItemUrl = getClass().getResource("/views/FavItem.fxml");
+        this.workItemUrl = getClass().getResource("/views/WorkItem.fxml");
     }
 
     public Parent load(String sourceName) {
@@ -64,7 +64,8 @@ public class UILoader {
 		try {
 			FXMLLoader loader =
 					new FXMLLoader(this.workItemUrl);
-			loader.setControllerFactory(clazz -> new WorkItemController(work, itemFactory));
+			loader.setControllerFactory(clazz ->
+				new WorkItemController(work, this.itemFactory, this.transferService, this, this.viewTypes));
 			return loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();

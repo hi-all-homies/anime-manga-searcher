@@ -29,7 +29,7 @@ public class AppRenderer {
 		this.favService.initFavs();
 		
 		Stage primaryStage = event.getStage();
-		var root = this.uiLoader.load("/MainWindow.fxml");
+		var root = this.uiLoader.load("/views/MainWindow.fxml");
 		primaryStage.setTitle(appTitle);
 		
 		Scene scene = new Scene(root);

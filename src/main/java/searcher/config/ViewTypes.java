@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ViewTypes {
 	private final Set<String> types = new HashSet<>();
-	public static final String ANIME_VIEW = "/Anime.fxml";
-	public static final String MANGA_VIEW = "/Manga.fxml";
+	public static final String ANIME_VIEW = "/views/Anime.fxml";
+	public static final String MANGA_VIEW = "/views/Manga.fxml";
 	
 	public ViewTypes() {
 		types.addAll(List.of("Manga", "Novel", "One-shot", "Manhwa", "Doujinshi"));

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="565.0" styleClass="fav-work" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="searcher.controllers.FavItemController">
+   <children>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="25.0">
+         <image>
+            <Image url="@../img/star.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="type" layoutX="163.0" layoutY="25.0" styleClass="my-text" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="15.0" />
+      <Label fx:id="year" layoutX="187.0" layoutY="51.0" styleClass="my-text" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="15.0" />
+      <Text fx:id="title" layoutX="106.0" layoutY="65.0" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="my-text" underline="true" wrappingWidth="460.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="45.0" />
+   </children>
+</AnchorPane>
