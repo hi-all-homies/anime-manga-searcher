@@ -1,5 +1,6 @@
 package searcher;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,5 +41,14 @@ public class WorkServiceTest {
 		StepVerifier.create(result)
 				.consumeNextWith(anime -> System.out.println(anime.getAired().getFrom().toLocalDate()))
 				.verifyComplete();
+	}
+	
+	@Test
+	void shoudFetch50TopWorks() {
+		var result = workService.findTopWorks("anime", 1);
+		
+		StepVerifier.create(result)
+			.consumeNextWith(works -> assertEquals(50, works.size()))
+			.verifyComplete();
 	}
 }

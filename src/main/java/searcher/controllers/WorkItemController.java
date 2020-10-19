@@ -14,7 +14,7 @@ import searcher.config.ViewTypes;
 import searcher.model.Work;
 import searcher.service.TransferService;
 import searcher.util.UILoader;
-import searcher.util.WorkItemFactory;
+import searcher.util.UIElementFactory;
 
 public class WorkItemController {
 	@FXML private Label score;
@@ -23,13 +23,13 @@ public class WorkItemController {
     @FXML private Label title;
     
     private final Work work;
-    private final WorkItemFactory itmFactory;
+    private final UIElementFactory itmFactory;
     private final TransferService transferService;
     private final UILoader uiLoader;
     private final ViewTypes viewTypes;
     
     public WorkItemController(
-    		Work work, WorkItemFactory itmFactory,
+    		Work work, UIElementFactory itmFactory,
     		TransferService transferService,
     		UILoader uiLoader, ViewTypes viewTypes) {
 		this.work = work;

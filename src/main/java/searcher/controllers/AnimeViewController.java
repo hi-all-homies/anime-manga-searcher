@@ -23,7 +23,7 @@ import searcher.model.FavWork;
 import searcher.service.FavoritesService;
 import searcher.service.TransferService;
 import searcher.service.WorkService;
-import searcher.util.WorkItemFactory;
+import searcher.util.UIElementFactory;
 
 @Component
 public class AnimeViewController {
@@ -40,12 +40,12 @@ public class AnimeViewController {
 	
 	private final TransferService transferService;
 	private final WorkService workService;
-	private WorkItemFactory itemFactory;
+	private UIElementFactory itemFactory;
 	private final FavoritesService favService;
 	
 	public AnimeViewController(TransferService transferService,
 			@Qualifier("anime") WorkService workService,
-			WorkItemFactory itemFactory, FavoritesService favService) {
+			UIElementFactory itemFactory, FavoritesService favService) {
 		this.transferService = transferService;
 		this.workService = workService;
 		this.itemFactory = itemFactory;

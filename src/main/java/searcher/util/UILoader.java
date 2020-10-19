@@ -20,13 +20,13 @@ public class UILoader {
     private final URL workItemUrl;
 	private final TransferService transferService;
 	private final ViewTypes viewTypes;
-	private final WorkItemFactory itemFactory;
+	private final UIElementFactory itemFactory;
 
     public UILoader(
     		ApplicationContext context,
     		TransferService transferService,
     		ViewTypes viewTypes,
-    		WorkItemFactory itemFactory) {
+    		UIElementFactory itemFactory) {
         this.context = context;
         this.transferService = transferService;
         this.viewTypes = viewTypes;

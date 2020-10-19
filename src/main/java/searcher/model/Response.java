@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class Response {
 
 	private List<Work> results;
+	
+	private List<Work> top;
 }

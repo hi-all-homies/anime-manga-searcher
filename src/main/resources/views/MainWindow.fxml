@@ -33,7 +33,8 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="actions">
                         <items>
-                          <MenuItem fx:id="favs" mnemonicParsing="false" text="favorites" />
+                          <MenuItem fx:id="top" mnemonicParsing="false" text="top works" />
+                              <MenuItem fx:id="favs" mnemonicParsing="false" text="favorites" />
                         </items>
                       </Menu>
                     </menus>

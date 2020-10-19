@@ -6,9 +6,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 @Service
-public class WorkItemFactory {
+public class UIElementFactory {
 	
-	public WorkItemFactory() {}
+	public UIElementFactory() {}
 	
 	public Text createTextNode(String textString, Font...fonts) {
 		Text text = new Text(textString);

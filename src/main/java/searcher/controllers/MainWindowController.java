@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
@@ -26,7 +27,7 @@ import searcher.model.Work;
 import searcher.service.FavoritesService;
 import searcher.service.WorkService;
 import searcher.util.UILoader;
-import searcher.util.WorkItemFactory;
+import searcher.util.UIElementFactory;
 
 @Component
 public class MainWindowController {
@@ -36,6 +37,8 @@ public class MainWindowController {
 	 @FXML private ToggleButton manga;
 	 @FXML private ToggleButton anime;
 	 @FXML private VBox content_vbox;
+	 private int page = 0;
+	 @FXML private MenuItem top;
 	 @FXML private MenuItem favs;
 	 private ProgressBar progress;
 	 
@@ -50,7 +53,7 @@ public class MainWindowController {
 			@Qualifier("anime") WorkService workService,
 			@Qualifier("publisher") UnicastProcessor<String> publisher,
 			@Qualifier("source") Flux<String> source,
-			WorkItemFactory workItemFactory,
+			UIElementFactory workItemFactory,
 			 UILoader uiLoader,
 			 FavoritesService favService) {
 		this.workService = workService;
@@ -64,6 +67,8 @@ public class MainWindowController {
 	public void initialize() {
 		this.initProgressBar();
 		this.favs.setOnAction(this::favsHandler);
+		this.top.setOnAction(this::findTopWorks);
+		
 		anime.setOnAction(this::toggleHandler);
 		manga.setOnAction(this::toggleHandler);
 		
@@ -77,6 +82,7 @@ public class MainWindowController {
 		if (!togl.isSelected())
 			togl.setSelected(true);
 		this.search.clear();
+		this.page = 0;
 	}
 	
 	private void initProgressBar() {
@@ -91,6 +97,23 @@ public class MainWindowController {
 			.stream()
 			.map(uiLoader::loadFavItem)
 			.forEach(item -> content_vbox.getChildren().add(item));
+	}
+	
+	private void findTopWorks(ActionEvent event) {
+		++page;
+		var topWorksMono = this.workService.findTopWorks(
+				((ToggleButton) this.toggles.getSelectedToggle()).getText(), page)
+				.subscribeOn(Schedulers.single());
+		
+		topWorksMono.doOnNext(
+				works -> Platform.runLater(() -> this.content_vbox.getChildren().clear()))
+			.subscribe(works -> {
+				final var next = new Button("next page");
+				next.setOnAction(this::findTopWorks);
+				next.setId("fav");
+				works.stream().forEach(eventListener.addWork);
+				Platform.runLater(() -> this.content_vbox.getChildren().add(next));
+			});
 	}
 	
 	
