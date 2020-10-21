@@ -16,6 +16,9 @@ public class Work {
 	private final String type;
 	private final int score;
 	private final String synopsis;
+	private final int rank;
+	private final String start_date;
+	private final String end_date;
 	
 	@JsonCreator
 	public Work(
@@ -24,13 +27,19 @@ public class Work {
 			@JsonProperty("title") String title,
 			@JsonProperty("type") String type,
 			@JsonProperty("score") int score,
-			@JsonProperty("synopsis") String synopsis) {
+			@JsonProperty("synopsis") String synopsis,
+			@JsonProperty("rank") int rank,
+			@JsonProperty("start_date") String start_date,
+			@JsonProperty("end_date") String end_date) {
 		this.mal_id = mal_id;
 		this.image_url = image_url;
 		this.title = title;
 		this.type = type;
 		this.score = score;
 		this.synopsis = synopsis;
+		this.rank = rank;
+		this.start_date = start_date;
+		this.end_date = end_date;
 	}
 	
 	public StartEndDates getDates() {

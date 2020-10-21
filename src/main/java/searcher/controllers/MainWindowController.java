@@ -108,12 +108,20 @@ public class MainWindowController {
 		topWorksMono.doOnNext(
 				works -> Platform.runLater(() -> this.content_vbox.getChildren().clear()))
 			.subscribe(works -> {
-				final var next = new Button("next page");
-				next.setOnAction(this::findTopWorks);
-				next.setId("fav");
-				works.stream().forEach(eventListener.addWork);
-				Platform.runLater(() -> this.content_vbox.getChildren().add(next));
+				works.stream().forEach(this::addTopWork);
+				
+				if (works.size() > 0) {
+					final var next = new Button("next page");
+					next.setOnAction(this::findTopWorks);
+					next.setId("fav");
+					Platform.runLater(() -> this.content_vbox.getChildren().add(next));
+				}
 			});
+	}
+	
+	private void addTopWork(Work work) {
+		final var guiElem = this.uiLoader.loadTopWork(work);
+		Platform.runLater(() -> content_vbox.getChildren().add(guiElem));
 	}
 	
 	
@@ -149,9 +157,9 @@ public class MainWindowController {
 			
 			
 		private final Consumer<Work> addWork = work -> {
-			var guiElem = uiLoader.loadWorkItem(work);
-			Platform.runLater(() -> {
-				content_vbox.getChildren().add(guiElem);});
+			final var guiElem = uiLoader.loadWorkItem(work);
+			Platform.runLater(() -> 
+				content_vbox.getChildren().add(guiElem));
 		};
 	}
 }

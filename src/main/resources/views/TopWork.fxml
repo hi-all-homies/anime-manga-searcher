@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="556.0" styleClass="work" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="searcher.controllers.TopWorkController">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <children>
+      <VBox layoutX="186.0" layoutY="14.0" prefHeight="390.0" prefWidth="556.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="title" alignment="CENTER" prefWidth="546.0" styleClass="my-text">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="16.0" />
+               </font></Label>
+            <HBox prefHeight="390.0" prefWidth="200.0">
+               <children>
+                  <TextFlow fx:id="left_text" lineSpacing="5.0" prefHeight="313.0" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding></TextFlow>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <StackPane styleClass="img-holder">
+                           <children>
+                              <ImageView fx:id="img" fitHeight="373.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></ImageView>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

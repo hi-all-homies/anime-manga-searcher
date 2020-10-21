@@ -25,7 +25,7 @@ public class Manga extends Work{
 			@JsonProperty("chapters") int chapters,
 			@JsonProperty("background") String background,
 			@JsonProperty("published") Published published) {
-		super(mal_id, image_url, title, type, score, synopsis);
+		super(mal_id, image_url, title, type, score, synopsis, 0, "", "");
 		
 		this.volumes = volumes;
 		this.chapters = chapters;

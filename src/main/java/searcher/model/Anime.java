@@ -31,7 +31,7 @@ public class Anime extends Work{
 			@JsonProperty("ending_themes") List<String> ending_themes,
 			@JsonProperty("aired") Aired aired) {
 		
-		super(mal_id, image_url, title, type, score, synopsis);
+		super(mal_id, image_url, title, type, score, synopsis, 0, "", "");
 		this.episodes = episodes;
 		this.duration = duration;
 		this.rating = rating;
